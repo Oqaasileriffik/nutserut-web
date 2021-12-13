@@ -46,7 +46,7 @@
 <div class="row">
 <div class="col text-center">
 <h1 class="my-3 title">Nutserut</h1>
-<p><button class="btn btn-sm btn-outline-primary" data-bs-toggle="modal" data-bs-target="#whatis"><i class="bi bi-info-square"></i> <span data-l10n="LBL_WHATIS">What is Nutserut?</span></button></p>
+<p><button class="btn btn-sm btn-outline-secondary" data-bs-toggle="modal" data-bs-target="#whatis"><i class="bi bi-info-square"></i> <span data-l10n="LBL_WHATIS">What is Nutserut?</span></button></p>
 </div>
 </div>
 
@@ -54,7 +54,7 @@
   <div class="modal-dialog modal-lg modal-dialog-centered modal-dialog-scrollable">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="whatisLabel"><i class="bi bi-info-square-fill"></i> <span data-l10n="HDR_WHATIS">What is Nutserut?</span></h5>
+        <h5 class="modal-title text-blue" id="whatisLabel"><i class="bi bi-info-square-fill"></i> <span data-l10n="HDR_WHATIS">What is Nutserut?</span></h5>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
@@ -97,7 +97,7 @@
 <div class="row my-5">
 <div class="col">
 	<div class="mb-3">
-	<label for="input" class="form-label"><h5><span class="kal2dan" style="display: none;" data-l10n="HDR_INPUT_KAL">Greenlandic sentence to be translated</span><span class="dan2kal" style="display: none;" data-l10n="HDR_INPUT_DAN">Danish sentence to be translated</span></h5></label>
+	<label for="input" class="form-label"><h5 class="text-blue"><span class="kal2dan" style="display: none;" data-l10n="HDR_INPUT_KAL">Greenlandic sentence to be translated</span><span class="dan2kal" style="display: none;" data-l10n="HDR_INPUT_DAN">Danish sentence to be translated</span></h5></label>
 	<textarea class="form-control" id="input" rows="3" spellcheck="false"></textarea>
 	</div>
 	<div class="text-center">

@@ -8,6 +8,9 @@ h1, h2, h3, h4, h5, h6 {
 	font-family: Roboto, sans-serif;
 	font-weight: 400;
 }
+.text-blue {
+	color: #345165;
+}
 a {
 	color: #c35d42;
 	text-decoration: none;
@@ -119,6 +122,16 @@ header h3 {
 	border-color: #af4228;
 	background-color: #fff;
 	color: #af4228;
+}
+
+.btn-outline-secondary {
+	border-color: #345165;
+	color: #345165;
+}
+.btn-outline-secondary:hover, .btn-outline-secondary:focus {
+	border-color: #547185;
+	background-color: #fff;
+	color: #547185;
 }
 
 #garbage-body li {
