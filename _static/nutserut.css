@@ -8,9 +8,6 @@ h1, h2, h3, h4, h5, h6 {
 	font-family: Roboto, sans-serif;
 	font-weight: 400;
 }
-.text-blue {
-	color: #345165;
-}
 a {
 	color: #c35d42;
 	text-decoration: none;
@@ -21,6 +18,9 @@ a:hover {
 }
 .text-orange {
 	color: #db6159;
+}
+.text-blue {
+	color: #345165;
 }
 .title {
 	font-size: 48px;
