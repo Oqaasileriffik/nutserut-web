@@ -70,7 +70,7 @@ function translateResult(rv) {
 	g_rv = rv;
 
 	if (rv.hasOwnProperty('input')) {
-		$('#input').val(rv.input);
+		$('#input').val(rv.input).change();
 	}
 
 	if (rv.hasOwnProperty('garbage') && rv.garbage.length) {
@@ -139,6 +139,11 @@ function btnTranslate() {
 		$('#output').show().find('.card-text').text(l10n_translate('MSG_WORKING'));
 		$.post('callback.php', {a: 'dan2kal', t: txt}).done(translateResult).fail(ajax_fail);
 	}
+}
+
+function inputChange() {
+	let cnt = '('+$('#input').val().length+'/500)';
+	$('#inputCount').text(cnt);
 }
 
 function btnCopyUrl() {
@@ -314,7 +319,8 @@ function init() {
 	$('.btnTranslate').click(btnTranslate);
 
 	$('.btnFeedbackSend').click(btnFeedbackSend);
-	$('#feedbackComment').change(feedbackChange).keyup(feedbackChange);
+	$('#feedbackComment').change(feedbackChange).keyup(feedbackChange).change();
+	$('#input').change(inputChange).keyup(inputChange).change();
 
 	$('.btnShare').click(btnShare);
 	$('.btnCopyUrl').click(btnCopyUrl);

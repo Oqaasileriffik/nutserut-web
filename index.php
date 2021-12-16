@@ -102,7 +102,7 @@
 				<input type="text" class="form-control" id="feedbackAnalysis" disabled readonly>
 	</div>
 			<div class="mb-3">
-				<div class="d-flex"><label for="feedbackComment" class="form-label text-orange me-auto" data-l10n="LBL_FEEDBACK_TEXT">Your feedback</label><div class="ms-3" id="feedbackCount"></div></div>
+				<div class="d-flex"><label for="feedbackComment" class="form-label text-orange me-auto" data-l10n="LBL_FEEDBACK_TEXT">Your feedback</label><div class="small ms-3" id="feedbackCount"></div></div>
 				<textarea class="form-control" id="feedbackComment" rows="3"></textarea>
 	</div>
 			<div class="mb-3">
@@ -152,7 +152,7 @@
 <div class="row my-5">
 <div class="col">
 	<div class="mb-3">
-	<label for="input" class="form-label"><h5 class="text-blue"><span class="kal2dan" style="display: none;" data-l10n="HDR_INPUT_KAL">Greenlandic sentence to be translated</span><span class="dan2kal" style="display: none;" data-l10n="HDR_INPUT_DAN">Danish sentence to be translated</span></h5></label>
+	<label for="input" class="form-label d-flex"><h5 class="text-blue me-auto"><span class="kal2dan" style="display: none;" data-l10n="HDR_INPUT_KAL">Greenlandic sentence to be translated</span><span class="dan2kal" style="display: none;" data-l10n="HDR_INPUT_DAN">Danish sentence to be translated</span></h5><div class="small ms-3" id="inputCount"></div></label>
 	<textarea class="form-control" id="input" rows="3" spellcheck="false"></textarea>
 	</div>
 	<div class="text-center">
