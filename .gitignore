@@ -4,3 +4,4 @@
 /l10n-kal.php
 /l10n.js
 /vendor
+*.sqlite
