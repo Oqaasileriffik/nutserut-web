@@ -1,5 +1,8 @@
 {
 	"require": {
 		"tdc/pdo": "^1.2.0"
+	},
+	"config": {
+		"vendor-dir": "_vendor"
 	}
 }

@@ -3,5 +3,9 @@
 /l10n-eng.php
 /l10n-kal.php
 /l10n.js
-/vendor
+/_vendor
 *.sqlite
+*.csv
+*.tsv
+feedback-*
+trx-*

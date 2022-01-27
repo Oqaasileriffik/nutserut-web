@@ -1,5 +1,1 @@
 FallbackResource ./
-
-<FilesMatch "\.(sqlite|sql)$">
-	Require all denied
-</FilesMatch>
