@@ -1,5 +1,7 @@
 <?php
 declare(strict_types=1);
+putenv('LC_ALL=C.UTF-8');
+setlocale(LC_ALL, 'C.UTF-8');
 require_once __DIR__.'/../_vendor/autoload.php';
 
 $GLOBALS['-db'] = null;
@@ -18,7 +20,7 @@ function db(): object {
 	$db->exec("PRAGMA case_sensitive_like = ON");
 	$db->exec("PRAGMA foreign_keys = ON");
 	$db->exec("PRAGMA journal_mode = WAL");
-	$db->exec("PRAGMA locking_mode = EXCLUSIVE");
+	$db->exec("PRAGMA locking_mode = NORMAL");
 	$db->exec("PRAGMA synchronous = NORMAL");
 	$db->exec("PRAGMA threads = 4");
 	$db->exec("PRAGMA trusted_schema = OFF");
@@ -47,6 +49,7 @@ function normalize_text($txt) {
 	if (mb_strlen($txt) > 500) {
 		$txt = mb_substr($txt, 0, 500);
 		$txt = preg_replace('~\S+\s*$~us', '', $txt);
+		$txt = trim($txt);
 		$txt .= ' …';
 	}
 
@@ -98,15 +101,34 @@ function json_encode_vb($v, $o=0) {
 function save_translation($hash, $pair, $result) {
 	$db = db();
 	$db->beginTransaction();
-	$upd = $db->prepare("UPDATE translations SET t_atime = strftime('%s', 'now'), t_hits = t_hits + 1 WHERE t_hash = ?");
-	$upd->execute([$hash]);
-	if ($upd->rowCount() == 0) {
-		$db->prepexec("INSERT INTO translations (t_hash, t_pair, t_result) VALUES (?, ?, ?)", [$hash, $pair, json_encode_vb($result)]);
+	if (PHP_SAPI === 'cli') {
+		$result = json_encode_vb($result);
+		$rv = $db->prepexec("SELECT t_result FROM translations WHERE t_hash = ?", [$hash])->fetchAll();
+		if ($rv[0]['t_result'] === $result) {
+			echo "UNCHANGED: {$hash}\n";
+			$db->rollback();
+			return;
+		}
+		$upd = $db->prepexec("UPDATE translations SET t_result = ? WHERE t_hash = ?", [$result, $hash]);
+		if ($upd->rowCount() != 0) {
+			echo "UPDATED: {$hash}\n";
+		}
+	}
+	else {
+		$upd = $db->prepare("UPDATE translations SET t_atime = strftime('%s', 'now'), t_hits = t_hits + 1 WHERE t_hash = ?");
+		$upd->execute([$hash]);
+		if ($upd->rowCount() == 0) {
+			$db->prepexec("INSERT INTO translations (t_hash, t_pair, t_result) VALUES (?, ?, ?)", [$hash, $pair, json_encode_vb($result)]);
+		}
 	}
 	$db->commit();
 }
 
 function load_translation($hash) {
+	if (PHP_SAPI === 'cli') {
+		return false;
+	}
+
 	$db = db();
 	$rv = $db->prepexec("SELECT t_result FROM translations WHERE t_hash = ?", [$hash])->fetchAll();
 	if (!empty($rv)) {

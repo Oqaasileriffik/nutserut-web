@@ -2,22 +2,36 @@
 declare(strict_types=1);
 require_once __DIR__.'/_inc/lib.php';
 
-header('Content-Type: application/json; charset=UTF-8');
-
-$origin = '*';
-if (!empty($_SERVER['HTTP_ORIGIN'])) {
-	$origin = trim($_SERVER['HTTP_ORIGIN']);
+if (PHP_SAPI === 'cli') {
+	$db = db();
+	$rv = $db->prepexec("SELECT t_pair, t_result FROM translations WHERE t_hash = ?", [$argv[1]])->fetchAll();
+	if (!empty($rv)) {
+		$action = $rv[0]['t_pair'];
+		$txt = json_decode($rv[0]['t_result'], true)['i'];
+	}
+	else {
+		echo "NOT FOUND: {$argv[1]}\n";
+		exit(-1);
+	}
 }
-header('Access-Control-Allow-Origin: '.$origin);
-header('Access-Control-Allow-Credentials: true');
+else {
+	header('Content-Type: application/json; charset=UTF-8');
 
-if ($_SERVER['REQUEST_METHOD'] === 'OPTIONS') {
-	header('HTTP/1.1 200 Options');
-	die();
+	$origin = '*';
+	if (!empty($_SERVER['HTTP_ORIGIN'])) {
+		$origin = trim($_SERVER['HTTP_ORIGIN']);
+	}
+	header('Access-Control-Allow-Origin: '.$origin);
+	header('Access-Control-Allow-Credentials: true');
+
+	if ($_SERVER['REQUEST_METHOD'] === 'OPTIONS') {
+		header('HTTP/1.1 200 Options');
+		die();
+	}
+
+	$txt = normalize_text(strval($_POST['t'] ?? $_GET['t'] ?? ''));
+	$action = trim(strval($_POST['a'] ?? $_GET['a'] ?? ''));
 }
-
-$txt = normalize_text(strval($_POST['t'] ?? $_GET['t'] ?? ''));
-$action = trim(strval($_POST['a'] ?? $_GET['a'] ?? ''));
 
 $rv = [
 	'input' => $txt,
@@ -34,6 +48,10 @@ if (!preg_match('~^share|load|feedback|dan2kal|kal2dan|kal2qda|kal2qdx$~', $acti
 }
 if (preg_match('~^dan2kal|kal2dan|kal2qda|kal2qdx$~', $action)) {
 	hashify($rv);
+}
+if (PHP_SAPI === 'cli' && $rv['hash'] !== $argv[1]) {
+	echo "{$rv['hash']} !== {$argv[1]}\n";
+	exit(-1);
 }
 
 while ($action === 'share') {
@@ -222,6 +240,10 @@ while ($action === 'kal2qdx') {
 	}
 	save_translation($rv['hash'], $rv['action'], $result);
 	break;
+}
+
+if (PHP_SAPI === 'cli') {
+	exit(0);
 }
 
 foreach ($rv as $k => $v) {
