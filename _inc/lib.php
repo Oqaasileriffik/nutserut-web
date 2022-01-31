@@ -77,7 +77,7 @@ function handle_via_port($input, $port) {
 		$output = '';
 	}
 
-	$output = preg_replace('~</?s[^>]*>~s', '', $output);
+	$output = preg_replace('~(^|\n)</?s[^>]*>~s', '', $output);
 	$output = trim($output);
 	return $output;
 }
