@@ -10,11 +10,12 @@ if (!empty($_SERVER['REMOTE_ADDR'])) {
 $db = db();
 
 $since = strtotime($argv[1] ?? '1970-01-01 00:00:00');
-echo "Since: $since\n";
+$until = strtotime($argv[2] ?? '2100-01-01 00:00:00');
+echo "Since: $since; Until: $until\n";
 
 $trs = [];
 $pairs = [];
-$stm = $db->prepexec("SELECT * FROM translations WHERE t_ctime >= ? ORDER BY t_id ASC", [$since]);
+$stm = $db->prepexec("SELECT * FROM translations WHERE t_ctime >= ? AND t_ctime < ? ORDER BY t_id ASC", [$since, $until]);
 while ($row = $stm->fetch()) {
 	$row['t_result'] = json_decode($row['t_result'], true);
 	$trs[$row['t_id']] = $row;
@@ -55,7 +56,7 @@ foreach ($pairs as $p => $ts) {
 }
 
 $fh = fopen("feedback-$first.txt", 'wb');
-$stm = $db->prepexec("SELECT * FROM feedback WHERE f_ctime >= ? ORDER BY f_id ASC", [$since]);
+$stm = $db->prepexec("SELECT * FROM feedback WHERE f_ctime >= ? AND f_ctime < ? ORDER BY f_id ASC", [$since, $until]);
 while ($row = $stm->fetch()) {
 	$out = "";
 	$out .= "ID: {$row['f_id']}\n";

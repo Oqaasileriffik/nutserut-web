@@ -201,7 +201,7 @@ while ($action === 'kal2qdx') {
 		$rv['input'] = $result['i'];
 		$rv['moved'] = $result['m'];
 		$rv['gloss'] = $result['g'];
-		$rv['garbage'] = $result['e'];
+		$rv['garbage'] = $result['e'] ?? [];
 	}
 	else {
 		$data = handle_via_port($txt, 10201);
