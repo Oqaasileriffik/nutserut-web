@@ -1,5 +1,5 @@
 /*!
- * Copyright 2021 Oqaasileriffik <oqaasileriffik@oqaasileriffik.gl> at https://oqaasileriffik.gl/
+ * Copyright 2021-2022 Oqaasileriffik <oqaasileriffik@oqaasileriffik.gl> at https://oqaasileriffik.gl/
  *
  * This project is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by

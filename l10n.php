@@ -8,7 +8,8 @@ if (!empty($_SERVER['REMOTE_ADDR'])) {
 $l10n = [];
 $keys = [];
 
-$csv = explode("\n", trim(file_get_contents('https://docs.google.com/spreadsheets/d/1vP57QButvuGnP-4TSf_-W9Fs-QNXrDLLIj-enpF7doI/export?exportFormat=csv')));
+$csv = explode("\n", trim(file_get_contents('https://docs.google.com/spreadsheets/d/1UbTdfRDnKDEfL4WHY0NYuyuNFIYQR59rRmB2Kiyx8Zk/export?exportFormat=csv')));
+$csv = array_merge($csv, explode("\n", trim(file_get_contents('https://docs.google.com/spreadsheets/d/1vP57QButvuGnP-4TSf_-W9Fs-QNXrDLLIj-enpF7doI/export?exportFormat=csv'))));
 $iso = str_getcsv($csv[0]);
 echo implode("\t", $iso)."\n";
 
@@ -20,6 +21,9 @@ if (!empty($argv[1])) {
 array_shift($csv);
 foreach ($csv as $l) {
 	$l = str_getcsv($l);
+	if (!preg_match('~^[_A-Z0-9]+$~', $l[0])) {
+		continue;
+	}
 	if (array_key_exists($l[0], $keys)) {
 		fprintf(STDERR, "Duplicate key %s\n", $l[0]);
 		//break;
@@ -81,7 +85,7 @@ for ($i=1 ; $i<4 ; ++$i) {
 
 $out = <<<XOUT
 /*!
- * Copyright 2021 Oqaasileriffik <oqaasileriffik@oqaasileriffik.gl> at https://oqaasileriffik.gl/
+ * Copyright 2021-2022 Oqaasileriffik <oqaasileriffik@oqaasileriffik.gl> at https://oqaasileriffik.gl/
  *
  * This project is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
