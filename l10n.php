@@ -8,9 +8,18 @@ if (!empty($_SERVER['REMOTE_ADDR'])) {
 $l10n = [];
 $keys = [];
 
-$csv = explode("\n", trim(file_get_contents('https://docs.google.com/spreadsheets/d/1UbTdfRDnKDEfL4WHY0NYuyuNFIYQR59rRmB2Kiyx8Zk/export?exportFormat=csv')));
-$csv = array_merge($csv, explode("\n", trim(file_get_contents('https://docs.google.com/spreadsheets/d/1vP57QButvuGnP-4TSf_-W9Fs-QNXrDLLIj-enpF7doI/export?exportFormat=csv'))));
-$iso = str_getcsv($csv[0]);
+$gdocs = [
+	'https://docs.google.com/spreadsheets/d/1UbTdfRDnKDEfL4WHY0NYuyuNFIYQR59rRmB2Kiyx8Zk/export?exportFormat=csv', // Shared
+	'https://docs.google.com/spreadsheets/d/1vP57QButvuGnP-4TSf_-W9Fs-QNXrDLLIj-enpF7doI/export?exportFormat=csv',
+	];
+$csv = fopen('php://memory', 'w+b');
+foreach ($gdocs as $gd) {
+	fwrite($csv, file_get_contents($gd));
+	fwrite($csv, "\n");
+}
+fseek($csv, 0);
+
+$iso = fgetcsv($csv);
 echo implode("\t", $iso)."\n";
 
 $suf = '';
@@ -18,9 +27,7 @@ if (!empty($argv[1])) {
 	$suf = '-'.$argv[1];
 }
 
-array_shift($csv);
-foreach ($csv as $l) {
-	$l = str_getcsv($l);
+while ($l = fgetcsv($csv)) {
 	if (!preg_match('~^[_A-Z0-9]+$~', $l[0])) {
 		continue;
 	}
