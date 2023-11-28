@@ -43,10 +43,10 @@ $rv = [
 	'output' => '',
 	];
 
-if (!preg_match('~^share|load|feedback|dan2kal|kal2dan|kal2qda|kal2qdx$~', $action)) {
+if (!preg_match('~^(share|load|feedback|dan2kal|kal2dan|kal2qda|kal2qdx)$~', $action)) {
 	$rv['errors'][] = 'Invalid action: '.$action;
 }
-if (preg_match('~^dan2kal|kal2dan|kal2qda|kal2qdx$~', $action)) {
+if (preg_match('~^(dan2kal|kal2dan|kal2qda|kal2qdx)$~', $action)) {
 	hashify($rv);
 }
 if (PHP_SAPI === 'cli' && $rv['hash'] !== $argv[1]) {
