@@ -1,6 +1,7 @@
 <?php
 declare(strict_types=1);
 putenv('LC_ALL=C.UTF-8');
+putenv('PERL_UNICODE=SDA');
 setlocale(LC_ALL, 'C.UTF-8');
 require_once __DIR__.'/../_vendor/autoload.php';
 
@@ -85,6 +86,43 @@ function handle_via_port($input, $port) {
 	return $output;
 }
 
+function handle_via_nmt($hash, $pair, $input) {
+	$ps = explode('-', $pair);
+	if ($ps[0] === 'h') {
+		$input = "<s1>\n{$input}\n</s1>";
+	}
+	file_put_contents("/tmp/{$pair}-{$hash}.in.txt", $input);
+
+	shell_exec("cat '/tmp/{$pair}-{$hash}.in.txt' | /opt/nutserut/models/{$ps[0]}/tok-{$ps[1]}.sh > '/tmp/{$pair}-{$hash}.in.bpe'");
+	shell_exec("/opt/nutserut/models/{$ps[0]}/trx.sh '{$ps[1]}' '/tmp/{$pair}-{$hash}.in.bpe' '/tmp/{$pair}-{$hash}.out.bpe' >'/tmp/{$pair}-{$hash}.log' 2>&1");
+
+	$output = file_get_contents("/tmp/{$pair}-{$hash}.out.bpe");
+	$output = preg_replace('~@@( |$)~', '', $output);
+	$output = trim($output);
+
+	/*
+	$output = explode("\n", $output);
+	for ($i=0,$e=count($output) ; $i<$e ; ++$i) {
+		$output[$i] = (($i%5)+1).': '.$output[$i];
+	}
+	$output = implode("\n\n", $output);
+	//*/
+
+	return $output;
+}
+
+function handle_via_gloss($hash, $pair, $input) {
+	$ps = explode('-', $pair);
+	file_put_contents("/tmp/{$pair}-{$hash}.in.txt", $input);
+
+	shell_exec("cat '/tmp/{$pair}-{$hash}.in.txt' | /opt/nutserut/gloss/{$ps[1]}/public.pl | grep -v '¶' >'/tmp/{$pair}-{$hash}.out' 2>'/tmp/{$pair}-{$hash}.log'");
+
+	$output = file_get_contents("/tmp/{$pair}-{$hash}.out");
+	$output = trim($output);
+
+	return $output;
+}
+
 function b64_slug($rv) {
 	$rv = base64_encode($rv);
 	$rv = trim($rv, '=');
@@ -139,4 +177,58 @@ function load_translation($hash) {
 
 function hashify(&$rv) {
 	$rv['hash'] = strtolower(substr(b64_slug(hash('sha256', "{$rv['action']}:{$rv['input']}", true)), 0, 40));
+}
+
+function page_header($title='SITE_TITLE') {
+?>
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title data-l10n="<?=$title;?>">Nutserut - Greenlandic-Danish Machine Translation</title>
+
+	<link rel="shortcut icon" href="https://oqaasileriffik.gl/favicon.ico">
+	<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Gudea%3A100%2C100italic%2C200%2C200italic%2C300%2C300italic%2C400%2C400italic%2C500%2C500italic%2C600%2C600italic%2C700%2C700italic%2C800%2C800italic%2C900%2C900italic%7CRoboto%3A100%2C100italic%2C200%2C200italic%2C300%2C300italic%2C400%2C400italic%2C500%2C500italic%2C600%2C600italic%2C700%2C700italic%2C800%2C800italic%2C900%2C900italic&#038;ver=5.5.3" type="text/css" media="all" />
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11/font/bootstrap-icons.css">
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3/dist/css/bootstrap.min.css">
+	<link rel="stylesheet" href="_static/nutserut.css?<?=filemtime(__DIR__.'/../_static/nutserut.css');?>">
+	<link rel="alternate" hreflang="da" href="https://nutserut.gl/da">
+	<link rel="alternate" hreflang="kl" href="https://nutserut.gl/kl">
+	<link rel="alternate" hreflang="en" href="https://nutserut.gl/en">
+	<link rel="alternate" hreflang="x-default" href="https://nutserut.gl/">
+	<script src="https://cdn.jsdelivr.net/npm/jquery@3.7/dist/jquery.min.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3/dist/js/bootstrap.bundle.min.js"></script>
+	<script src="_static/l10n.js?<?=filemtime(__DIR__.'/../_static/l10n.js');?>"></script>
+	<script src="_static/nutserut.js?<?=filemtime(__DIR__.'/../_static/nutserut.js');?>"></script>
+</head>
+<body class="d-flex flex-column">
+
+<header>
+	<div class="container">
+	<div class="logo">
+		<a href="https://oqaasileriffik.gl/" class="text-decoration-none">
+		<h1 data-l10n="HDR_TITLE">Oqaasileriffik</h1>
+		<h3 data-l10n="HDR_SUBTITLE">The Language Secretariat of Greenland</h3>
+		</a>
+	</div>
+	</div>
+
+	<div class="menu">
+	<div class="container">
+		<div class="lang-select">
+			<a class="dropdown text-decoration-none fs-5" id="dropLanguages" data-bs-toggle="dropdown" data-bs-auto-close="true" aria-expanded="false"><i class="bi bi-globe2"></i></a>
+			<ul class="dropdown-menu" aria-labelledby="dropLanguages">
+				<li><a href="./kl" class="item l10n" data-which="kl" title="Kalaallisut"><tt>KAL</tt> <span>Kalaallisut</span></a></li>
+				<li><a href="./da" class="item l10n" data-which="da" title="Dansk"><tt>DAN</tt> <span>Dansk</span></a></li>
+				<li><a href="./en" class="item l10n" data-which="en" title="English"><tt>ENG</tt> <span>English</span></a></li>
+			</ul>
+		</div>
+	</div>
+	</div>
+</header>
+
+<div class="container flex-grow-1">
+
+<?php
 }

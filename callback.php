@@ -43,10 +43,10 @@ $rv = [
 	'output' => '',
 	];
 
-if (!preg_match('~^(share|load|feedback|dan2kal|kal2dan|kal2qda|kal2qdx)$~', $action)) {
+if (!preg_match('~^(?:[mhg]-)?(?:share|load|feedback|dan2kal|kal2dan|kal2qda|kal2qdx|kal2eng)$~', $action)) {
 	$rv['errors'][] = 'Invalid action: '.$action;
 }
-if (preg_match('~^(dan2kal|kal2dan|kal2qda|kal2qdx)$~', $action)) {
+if (preg_match('~^(?:[mhg]-)?(?:dan2kal|kal2dan|kal2qda|kal2qdx|kal2eng)$~', $action)) {
 	hashify($rv);
 }
 if (PHP_SAPI === 'cli' && $rv['hash'] !== $argv[1]) {
@@ -75,6 +75,9 @@ while ($action === 'share') {
 		$ins = $db->prepare("INSERT INTO shares (t_id, s_slug, s_ip) VALUES (?, ?, ?)");
 		for ($i=3 ; $i<strlen($hash) ; ++$i) {
 			$slug = substr($hash, 0, $i);
+			if (preg_match('~^(pre|hybrid|gloss|machine)$~', $slug)) {
+				continue;
+			}
 			$sel->execute([$slug]);
 			$res = $sel->fetchAll();
 			if (empty($res)) {
@@ -136,6 +139,40 @@ while ($action === 'feedback') {
 	}
 	$id = intval($res[0]['t_id']);
 	$db->prepexec("INSERT INTO feedback (t_id, f_which, f_comment, f_email, f_ip) VALUES (?, ?, ?, ?, ?)", [$id, $which, $comment, $email, $_SERVER['REMOTE_ADDR']]);
+	break;
+}
+
+while ($action === 'g-kal2eng' || $action === 'g-kal2dan') {
+	if (empty($txt) || !preg_match('~\pL~iu', $txt)) {
+		$rv['errors'][] = 'No letters in input: '.$txt;
+		break;
+	}
+
+	$result = load_translation($rv['hash']);
+	if (!empty($result)) {
+		$rv['output'] = $result['o'];
+	}
+	else {
+		$rv['output'] = handle_via_gloss($rv['hash'], $action, $txt);
+	}
+	save_translation($rv['hash'], $rv['action'], ['i' => $rv['input'], 'o' => $rv['output']]);
+	break;
+}
+
+while ($action === 'm-dan2kal' || $action === 'm-kal2dan' || $action === 'h-kal2dan') {
+	if (empty($txt) || !preg_match('~\pL~iu', $txt)) {
+		$rv['errors'][] = 'No letters in input: '.$txt;
+		break;
+	}
+
+	$result = load_translation($rv['hash']);
+	if (!empty($result)) {
+		$rv['output'] = $result['o'];
+	}
+	else {
+		$rv['output'] = handle_via_nmt($rv['hash'], $action, $txt);
+	}
+	save_translation($rv['hash'], $rv['action'], ['i' => $rv['input'], 'o' => $rv['output']]);
 	break;
 }
 
