@@ -7,7 +7,7 @@ page_header('SITE_TITLE_PRE');
 <div class="row">
 <div class="col text-center">
 <h1 class="my-3 title">Nutserut</h1>
-<h2 class="my-3 subtitle"><i class="bi bi-diagram-3"></i> <span data-l10n="LBL_METHOD_PRE">Pre-2023 Method</span></h2>
+<h2 class="my-3 text-blue subtitle"><i class="bi bi-diagram-3"></i> <span data-l10n="LBL_METHOD_PRE">Pre-2023 Method</span></h2>
 <p><button class="btn btn-sm btn-outline-secondary" data-bs-toggle="modal" data-bs-target="#whatis_pre"><i class="bi bi-info-square"></i> <span data-l10n="LBL_WHATIS">What is Nutserut?</span></button></p>
 </div>
 </div>
@@ -105,14 +105,22 @@ require_once __DIR__.'/garbage.php';
 </div>
 </div>
 
+<div class="row my-5 justify-content-center">
+<div class="col-lg-9 col-md-9 col-sm-12">
+	<h5 data-l10n="HDR_PRE2023_INFO" id="info">Rule-based Machine Translation</h5>
+	<p data-l10n="TXT_PRE2023_010">Started in 2018, this project aimed at making a rule-based machine translation engine between Greenlandic and Danish. Until mid-2023, this was the only viable method for handling a polysynthetic language with sparse bilingual corpora, but advances in machine learning has since allowed for trained machine translation models that perform equally well.</p>
+	<p data-l10n="TXT_PRE2023_020">During the development of this project, we greatly improved the Greenlandic language analysis engine, which has many other uses - one of which is seen in the <a href="./hybrid">hybrid artificial intelligence</a> engine.</p>
+</div>
+</div>
+
 <div class="row my-5">
 <div class="col">
 	<div class="text-center">
 		<hr>
 		<a href="./" class="btn btn-outline-primary m-1"><span data-l10n="BTN_FRONTPAGE">Front page</span></a>
-		<a href="./gloss" class="btn btn-outline-primary m-1"><i class="bi bi-highlighter"></i> <span data-l10n="LBL_METHOD_GLOSS">Educational Annotation</span></a>
 		<a href="./hybrid" class="btn btn-outline-primary m-1"><i class="bi bi-boxes"></i> <span data-l10n="LBL_METHOD_HYBRID">Hybrid Artificial Intelligence</span></a>
 		<a href="./machine" class="btn btn-outline-primary m-1"><i class="bi bi-cpu"></i> <span data-l10n="LBL_METHOD_MACHINE">Artificial Intelligence</span></a>
+		<a href="./gloss" class="btn btn-outline-primary m-1"><i class="bi bi-highlighter"></i> <span data-l10n="LBL_METHOD_GLOSS">Educational Annotation</span></a>
 	</div>
 </div>
 </div>

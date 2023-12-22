@@ -7,7 +7,7 @@ page_header('SITE_TITLE_HYBRID');
 <div class="row">
 <div class="col text-center">
 <h1 class="my-3 title">Nutserut</h1>
-<h2 class="my-3 subtitle"><i class="bi bi-boxes"></i> <span data-l10n="LBL_METHOD_HYBRID">Hybrid Artificial Intelligence</span></h2>
+<h2 class="my-3 text-blue subtitle"><i class="bi bi-boxes"></i> <span data-l10n="LBL_METHOD_HYBRID">Hybrid Artificial Intelligence</span></h2>
 <p><button class="btn btn-sm btn-outline-secondary" data-bs-toggle="modal" data-bs-target="#whatis_hybrid"><i class="bi bi-info-square"></i> <span data-l10n="LBL_WHATIS_HYBRID">What is hybrid artificial intelligence?</span></button></p>
 </div>
 </div>
@@ -22,7 +22,7 @@ page_header('SITE_TITLE_HYBRID');
 		<div class="modal-body">
 			<h3 data-l10n="HDR_HYB_ITIS">Hybrid artificial intelligence is …</h3>
 			<ul>
-				<li data-l10n="TXT_HYB_IS_010">a trained machine translation model from augmented parallel human-authored texts. See <a href="https://en.wikipedia.org/wiki/Machine_learning" target="_blank">https://en.wikipedia.org/wiki/Machine_learning</a></li>
+				<li data-l10n="TXT_HYB_IS_010">a machine translation model trained from linguistically annotated parallel human-authored texts.</li>
 			</ul>
 
 			<hr>
@@ -30,7 +30,7 @@ page_header('SITE_TITLE_HYBRID');
 			<ul>
 				<li data-l10n="TXT_ISNOT_010">a human; the service does not understand spelling or grammatical errors, and these will greatly impair the quality of the translation.</li>
 				<li data-l10n="TXT_ISNOT_020">a dictionary; this service expects whole sentences, not fragments or single words.</li>
-				<li data-l10n="TXT_HYB_ISNOT_030">intelligent; despite the media commonly referring to machine learning models as artificial intelligence, this is a misnomer. There is no intelligence or independent thought expressed by learned models. This is true even for large language models like ChatGPT.</li>
+				<li data-l10n="TXT_ML_ISNOT_030">intelligent; despite the media commonly referring to machine learning models as artificial intelligence, this is a misnomer. There is no intelligence or independent thought expressed by learned models. This is true even for large language models like ChatGPT.</li>
 			</ul>
 		</div>
 		<div class="modal-footer text-center">
@@ -80,14 +80,22 @@ require_once __DIR__.'/garbage.php';
 </div>
 </div>
 
+<div class="row my-5 justify-content-center">
+<div class="col-lg-9 col-md-9 col-sm-12">
+	<h5 data-l10n="HDR_HYBRID_INFO" id="info">Hybrid Rule-Based and Machine Learning</h5>
+	<p data-l10n="TXT_HYBRID_010">This is a machine translation model trained from parallel human-authored texts that have been through parts of the rule-based Greenlandic language analysis engine. In this first phase, no effort has gone into cleaning up or verifying that the texts are truly parallel. When compared to the <a href="./machine">raw artificial intelligence</a> engine, it is evident that by providing linguistic expertise we can greatly improve the translation quality, even if the parallel texts are of dubious quality.</p>
+	<p data-l10n="TXT_HYBRID_020">In 2024, we will work on verifying that the parallel corpora are of good quality, and on improving the Greenlandic analyser to provide better data, including better spelling- and grammar-checking.</p>
+</div>
+</div>
+
 <div class="row my-5">
 <div class="col">
 	<div class="text-center">
 		<hr>
 		<a href="./" class="btn btn-outline-primary m-1"><span data-l10n="BTN_FRONTPAGE">Front page</span></a>
-		<a href="./gloss" class="btn btn-outline-primary m-1"><i class="bi bi-highlighter"></i> <span data-l10n="LBL_METHOD_GLOSS">Educational Annotation</span></a>
 		<a href="./machine" class="btn btn-outline-primary m-1"><i class="bi bi-cpu"></i> <span data-l10n="LBL_METHOD_MACHINE">Artificial Intelligence</span></a>
 		<a href="./pre" class="btn btn-outline-primary m-1"><i class="bi bi-diagram-3"></i> <span data-l10n="LBL_METHOD_PRE">Pre-2023 Method</span></a>
+		<a href="./gloss" class="btn btn-outline-primary m-1"><i class="bi bi-highlighter"></i> <span data-l10n="LBL_METHOD_GLOSS">Educational Annotation</span></a>
 	</div>
 </div>
 </div>

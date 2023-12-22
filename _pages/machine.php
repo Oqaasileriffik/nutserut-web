@@ -7,7 +7,7 @@ page_header('SITE_TITLE_MACHINE');
 <div class="row">
 <div class="col text-center">
 <h1 class="my-3 title">Nutserut</h1>
-<h2 class="my-3 subtitle"><i class="bi bi-cpu"></i> <span data-l10n="LBL_METHOD_MACHINE">Artificial Intelligence</span></h2>
+<h2 class="my-3 text-blue subtitle"><i class="bi bi-cpu"></i> <span data-l10n="LBL_METHOD_MACHINE">Artificial Intelligence</span></h2>
 <p><button class="btn btn-sm btn-outline-secondary" data-bs-toggle="modal" data-bs-target="#whatis_machine"><i class="bi bi-info-square"></i> <span data-l10n="LBL_WHATIS_MACHINE">What is artificial intelligence?</span></button></p>
 </div>
 </div>
@@ -22,7 +22,7 @@ page_header('SITE_TITLE_MACHINE');
 		<div class="modal-body">
 			<h3 data-l10n="HDR_ML_ITIS">Artificial intelligence is …</h3>
 			<ul>
-				<li data-l10n="TXT_ML_IS_010">a trained machine translation model from raw parallel human-authored texts. See <a href="https://en.wikipedia.org/wiki/Machine_learning" target="_blank">https://en.wikipedia.org/wiki/Machine_learning</a></li>
+				<li data-l10n="TXT_ML_IS_010">a machine translation model trained from raw parallel human-authored texts.</li>
 			</ul>
 
 			<hr>
@@ -80,14 +80,21 @@ require_once __DIR__.'/garbage.php';
 </div>
 </div>
 
+<div class="row my-5 justify-content-center">
+<div class="col-lg-9 col-md-9 col-sm-12">
+	<h5 data-l10n="HDR_MACHINE_INFO" id="info">Machine Learning</h5>
+	<p data-l10n="TXT_MACHINE_010">This is a machine translation model trained from raw parallel human-authored texts. This is about as good as you can get with zero linguistic expertise. In this first phase, no effort has gone into cleaning up or verifying that the texts are truly parallel. We made this model public to show what is possible from the bilingual texts one can find online, and as a comparison to the <a href="./hybrid">hybrid artificial intelligence</a> engine where we provide a little linguistic expertise.</p>
+</div>
+</div>
+
 <div class="row my-5">
 <div class="col">
 	<div class="text-center">
 		<hr>
 		<a href="./" class="btn btn-outline-primary m-1"><span data-l10n="BTN_FRONTPAGE">Front page</span></a>
-		<a href="./gloss" class="btn btn-outline-primary m-1"><i class="bi bi-highlighter"></i> <span data-l10n="LBL_METHOD_GLOSS">Educational Annotation</span></a>
 		<a href="./hybrid" class="btn btn-outline-primary m-1"><i class="bi bi-boxes"></i> <span data-l10n="LBL_METHOD_HYBRID">Hybrid Artificial Intelligence</span></a>
 		<a href="./pre" class="btn btn-outline-primary m-1"><i class="bi bi-diagram-3"></i> <span data-l10n="LBL_METHOD_PRE">Pre-2023 Method</span></a>
+		<a href="./gloss" class="btn btn-outline-primary m-1"><i class="bi bi-highlighter"></i> <span data-l10n="LBL_METHOD_GLOSS">Educational Annotation</span></a>
 	</div>
 </div>
 </div>

@@ -6,35 +6,13 @@ page_header('SITE_TITLE_GLOSS');
 ?>
 <div class="row">
 <div class="col text-center">
-<h1 class="my-3 title">Nutserut</h1>
-<h2 class="my-3 subtitle"><i class="bi bi-highlighter"></i> <span data-l10n="LBL_METHOD_GLOSS">Educational Annotation</span></h2>
-<p><button class="btn btn-sm btn-outline-secondary" data-bs-toggle="modal" data-bs-target="#whatis_gloss"><i class="bi bi-info-square"></i> <span data-l10n="LBL_WHATIS_GLOSS">What is educational annotation?</span></button></p>
+<h1 class="my-3 title"><i class="bi bi-highlighter"></i> <span data-l10n="LBL_METHOD_GLOSS">Educational Annotation</span></h1>
 </div>
 </div>
 
-<div class="modal fade showFirstLoad" id="whatis_gloss" tabindex="-1" aria-labelledby="whatisLabel" aria-hidden="true">
-<div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
-	<div class="modal-content">
-		<div class="modal-header">
-			<h5 class="modal-title text-blue" id="whatisLabel"><i class="bi bi-info-square-fill"></i> <span data-l10n="LBL_WHATIS_GLOSS">What is educational annotation?</span></h5>
-			<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-		</div>
-		<div class="modal-body">
-			<h3 data-l10n="HDR_GLOSS_ITIS">Educational annotation is …</h3>
-			<ul>
-				<li data-l10n="TXT_GLOSS_IS_010">TODO</li>
-			</ul>
-
-			<hr>
-			<h3 data-l10n="HDR_GLOSS_ITISNOT">Educational annotation is <em>not</em> …</h3>
-			<ul>
-				<li data-l10n="TXT_GLOSS_ISNOT_010">TODO</li>
-			</ul>
-		</div>
-		<div class="modal-footer text-center">
-			<button type="button" class="btn btn-primary" data-bs-dismiss="modal"><i class="bi bi-check2"></i> <span data-l10n="BTN_WHATIS_CLOSE">Understood</span></button>
-		</div>
-	</div>
+<div class="row my-3 justify-content-center">
+<div class="col-lg-6 col-md-9 col-sm-12">
+	<p><span data-l10n="TXT_GLOSS_010">This is a language learning tool designed to show you the source and target language side-by-side. This is <em>not translation</em>. While this tool does try to provide the correct target language translation based on the source language context, it leaves word order and conjugation/inflection as an exercise for the reader.</span> <a href="#info" data-l10n="LBL_READ_MORE">Read more…</a></p>
 </div>
 </div>
 
@@ -77,6 +55,15 @@ require_once __DIR__.'/garbage.php';
 	<pre><code class="card-text"></code></pre>
 	</div>
 	</div>
+</div>
+</div>
+
+<div class="row my-5 justify-content-center">
+<div class="col-lg-9 col-md-9 col-sm-12">
+	<h5 data-l10n="HDR_GLOSS_INFO" id="info">Uses of annotation</h5>
+	<p data-l10n="TXT_GLOSS_020">Let's start with an example. If we take the Greenlandic prompt "<em>Kalaallisut oqaaseqatigiit nutserneqartussat</em>" and <a href="./n1k">annotate it</a>, we get a breakdown of each word's analysis and then a translation of the roots (lemmas), morphemes, inflexion, and cases therein.</p>
+
+	<p>Looking at the word "<em>nutserneqartussat</em>", we can see that the root "<em>nutser</em>" semantically has to do with turning into something (<code>Sem/turn_into</code>) and is translated as "<em>translate</em>". We don't have a translation for the morpheme <code>NIQAR</code> (it turns the construction passive), but <code>TUQ</code> means "<em>one who</em>", and <code>SSAQ</code> means "<em>future</em>".</p>
 </div>
 </div>
 
