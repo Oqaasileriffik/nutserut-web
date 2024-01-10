@@ -22,10 +22,8 @@ page_header('SITE_TITLE_GLOSS');
 		<div class="btn-group" role="group" aria-label="Toggle translation direction">
 		<input type="radio" class="btn-check" name="optPair" id="g-kal2eng" value="g-kal2eng" autocomplete="off" checked>
 		<label class="btn btn-outline-primary" for="g-kal2eng" data-l10n="BTN_KAL2ENG">Kalaallisut<i class="bi bi-arrow-right-short"></i>English</label>
-		<!--
 		<input type="radio" class="btn-check" name="optPair" id="g-kal2dan" value="g-kal2dan" autocomplete="off">
 		<label class="btn btn-outline-primary" for="g-kal2dan" data-l10n="BTN_KAL2DAN">Kalaallisut<i class="bi bi-arrow-right-short"></i>Danish</label>
-		-->
 		</div>
 	</div>
 </div>

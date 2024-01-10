@@ -6,16 +6,16 @@ if (preg_match('~/(pre|hybrid|machine|gloss)/$~', $_SERVER['REQUEST_URI'], $m)) 
 	header('Location: ../'.$m[1]);
 	exit();
 }
-else if (preg_match('~/pre[^a-z/]*~', $_SERVER['REQUEST_URI'])) {
+else if (preg_match('~/pre([?]|$)~', $_SERVER['REQUEST_URI'])) {
 	require_once __DIR__.'/_pages/pre.php';
 }
-else if (preg_match('~/gloss[^a-z/]*~', $_SERVER['REQUEST_URI'])) {
+else if (preg_match('~/gloss([?]|$)~', $_SERVER['REQUEST_URI'])) {
 	require_once __DIR__.'/_pages/gloss.php';
 }
-else if (preg_match('~/hybrid[^a-z/]*~', $_SERVER['REQUEST_URI'])) {
+else if (preg_match('~/hybrid([?]|$)~', $_SERVER['REQUEST_URI'])) {
 	require_once __DIR__.'/_pages/hybrid.php';
 }
-else if (preg_match('~/machine[^a-z/]*~', $_SERVER['REQUEST_URI'])) {
+else if (preg_match('~/machine([?]|$)~', $_SERVER['REQUEST_URI'])) {
 	require_once __DIR__.'/_pages/machine.php';
 }
 else {

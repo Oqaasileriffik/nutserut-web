@@ -113,11 +113,35 @@ function handle_via_nmt($hash, $pair, $input) {
 
 function handle_via_gloss($hash, $pair, $input) {
 	$ps = explode('-', $pair);
-	file_put_contents("/tmp/{$pair}-{$hash}.in.txt", $input);
+	$ports = [
+		'kal2dan' => 4001,
+		'kal2eng' => 4002,
+		];
+	$nonce = mt_rand();
+	$nonced = "<s id=\"1\" nonce=\"{$nonce}\">\n{$input}\n</s>\n";
+	$port = $ports[$ps[1]];
 
-	shell_exec("cat '/tmp/{$pair}-{$hash}.in.txt' | /opt/nutserut/gloss/{$ps[1]}/public.pl | grep -v '¶' >'/tmp/{$pair}-{$hash}.out' 2>'/tmp/{$pair}-{$hash}.log'");
+	$errno = null;
+	$errstr = null;
+	$s = @fsockopen('localhost', $port, $errno, $errstr, 1);
+	if ($s === false) {
+		header('X-Gloss-Error: '.$errno, false);
+		return '';
+	}
+	if (fwrite($s, $nonced."\n<STREAMCMD:FLUSH>\n<END-OF-INPUT>\n") === false) {
+		header('X-Gloss-Error: '.$port, false);
+		return '';
+	}
+	$output = stream_get_contents($s);
+	$output = trim($output);
+	if (!preg_match('~<s .*?\bnonce="'.$nonce.'">\n~', $output)) {
+		$output = '';
+	}
 
-	$output = file_get_contents("/tmp/{$pair}-{$hash}.out");
+	$output = preg_replace('~<s [^>]+>\n~', '', $output);
+	$output = preg_replace('~[^\n]*¶[^\n]*\n~', '', $output);
+	$output = str_replace('</s>', '', $output);
+	$output = str_replace('<STREAMCMD:FLUSH>', '', $output);
 	$output = trim($output);
 
 	return $output;
