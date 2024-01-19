@@ -66,6 +66,11 @@
 		window.localStorage.removeItem(key);
 	}
 
+	function gloss_post_render() {
+		const tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]');
+		const tooltipList = [...tooltipTriggerList].map(tooltipTriggerEl => new bootstrap.Tooltip(tooltipTriggerEl));
+	}
+
 	function sort_readings(a, b) {
 		if (/¤MERGED/.test(a)) {
 			return -1;
@@ -75,10 +80,42 @@
 
 	function format_reading(txt) {
 		txt = txt.replace(/ ¤\S+/g, '');
-		txt = escHTML(txt);
-		txt = txt.replace(/&quot;(.+?)&quot; /g, '<span class="text-success">"$1"</span> ');
-		txt = txt.replace(/ (i?(?:N|V|Pali|Conj|Adv|Interj|Pron|Prop|Num|Symbol|Adj|Part|Prep))\b/g, ' <span class="text-primary">$1</span>');
-		txt = txt.replace(/ ([A-Z]+)\b/g, ' <span class="text-danger">$1</span>');
+		let o = txt;
+		do {
+			o = txt;
+			txt = txt.replace(/(^| )"([^" ]+) /g, '$1"$2\xa0');
+		} while (o !== txt);
+
+		txt = txt.split(' ');
+		for (let i=0 ; i<txt.length ; ++i) {
+			let tag = txt[i];
+			let cls = [];
+			let title = '';
+			if (/^"(.+?)"$/.test(txt[i])) {
+				cls.push('text-success');
+			}
+			if (/^(i?(?:N|V|Pali|Conj|Adv|Interj|Pron|Prop|Num|Symbol|Adj|Part|Prep))$/.test(txt[i])) {
+				cls.push('text-primary');
+			}
+			if (/^([-A-Z]+)$/.test(txt[i])) {
+				cls.push('text-danger');
+			}
+			if (l10n.tags[g_lang].hasOwnProperty(tag)) {
+				cls.push('dashed');
+				title = l10n.tags[g_lang][tag];
+			}
+			if (tag.indexOf('i') === 0 && l10n.tags[g_lang].hasOwnProperty(tag.substr(1))) {
+				cls.push('dashed');
+				title = l10n.tags[g_lang][tag.substr(1)];
+			}
+			txt[i] = '<span class="'+cls.join(' ')+'"';
+			if (title) {
+				txt[i] += ' data-bs-container="body" data-bs-toggle="tooltip" data-bs-placement="top" title="'+escHTML(title)+'"';
+			}
+			txt[i] += '>'+escHTML(tag)+'</span>';
+		}
+		txt = txt.join(' ');
+
 		return txt;
 	}
 
@@ -195,6 +232,7 @@
 		if (rv.hasOwnProperty('output')) {
 			if (/^g-/.test(g_pair)) {
 				$('#output').show().find('.card-text').html(glossify(rv.output));
+				gloss_post_render();
 			}
 			else {
 				$('#output').show().find('.card-text').text(rv.output);
@@ -423,6 +461,15 @@
 		}
 	}
 
+	function _l10n_export() {
+		let ps = {};
+		$('[data-l10n]').each(function() {
+			let e = $(this);
+			ps[e.attr('data-l10n')] = e.html();
+		});
+		console.log(JSON.stringify(ps));
+	}
+
 	function init() {
 		$('#garbage,#output,#output-gloss,#output-moved').hide();
 		$('.btnTranslate').click(btnTranslate);
@@ -438,7 +485,7 @@
 			g_pair = $('input[name=optPair]:checked').val();
 			$('.dan2kal,.kal2dan,.m-dan2kal,.m-kal2dan,.h-kal2dan,.g-kal2eng,.g-kal2dan').hide();
 			$('.'+g_pair).show();
-			console.log(g_pair);
+			//console.log(g_pair);
 		}).first().click();
 
 		$('input[name=optPair]').first().change();

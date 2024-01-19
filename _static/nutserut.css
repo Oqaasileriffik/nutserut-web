@@ -26,6 +26,11 @@ a:hover {
 	font-size: 48px;
 }
 
+.dashed {
+	text-decoration: underline;
+	text-decoration-style: dashed;
+}
+
 header {
 	background-color: #345165;
 }

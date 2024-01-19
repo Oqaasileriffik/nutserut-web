@@ -12,7 +12,7 @@ page_header('SITE_TITLE_GLOSS');
 
 <div class="row my-3 justify-content-center">
 <div class="col-lg-6 col-md-9 col-sm-12">
-	<p><span data-l10n="TXT_GLOSS_010">This is a language learning tool designed to show you the source and target language side-by-side. This is <em>not translation</em>. While this tool does try to provide the correct target language translation based on the source language context, it leaves word order and conjugation/inflection as an exercise for the reader.</span> <a href="#info" data-l10n="LBL_READ_MORE">Read more…</a></p>
+	<p><span data-l10n="LBL_GLOSS_010">This is a language learning tool designed to show you the source and target language side-by-side, in order to understand Greenlandic in its original context. This is <em>not translation</em>. While this tool does try to provide the correct target language translation based on the source language context, it leaves word order and conjugation/inflection as an exercise for the reader.</span> <a href="#info" data-l10n="LBL_READ_MORE">Read more…</a></p>
 </div>
 </div>
 
@@ -59,9 +59,9 @@ require_once __DIR__.'/garbage.php';
 <div class="row my-5 justify-content-center">
 <div class="col-lg-9 col-md-9 col-sm-12">
 	<h5 data-l10n="HDR_GLOSS_INFO" id="info">Uses of annotation</h5>
-	<p data-l10n="TXT_GLOSS_020">Let's start with an example. If we take the Greenlandic prompt "<em>Kalaallisut oqaaseqatigiit nutserneqartussat</em>" and <a href="./n1k">annotate it</a>, we get a breakdown of each word's analysis and then a translation of the roots (lemmas), morphemes, inflexion, and cases therein.</p>
+	<p data-l10n="TXT_GLOSS_020">For example, if we take the Greenlandic prompt "<em>Kalaallisut oqaaseqatigiit nutserneqartussat</em>" and <a href="./n1k">annotate it</a>, we get a breakdown of each word's analysis and then a translation of the roots (lemmas), morphemes, inflexion, and cases therein.</p>
 
-	<p>Looking at the word "<em>nutserneqartussat</em>", we can see that the root "<em>nutser</em>" semantically has to do with turning into something (<code>Sem/turn_into</code>) and is translated as "<em>translate</em>". We don't have a translation for the morpheme <code>NIQAR</code> (it turns the construction passive), but <code>TUQ</code> means "<em>one who</em>", and <code>SSAQ</code> means "<em>future</em>".</p>
+	<p data-l10n="TXT_GLOSS_030">Looking at the word "<em>nutserneqartussat</em>", we can see that the root "<em>nutser</em>" semantically has to do with turning into something (<code>Sem/turn_into</code>) and is translated as "<em>translate</em>". The morpheme <code>NIQAR</code> turns the construction passive, <code>TUQ</code> means "<em>one who</em>", <code>SSAQ</code> means "<em>future</em>", so the verbatim phrase is "future one who becomes translated", which we can write cleaner as "to be translated".</p>
 </div>
 </div>
 

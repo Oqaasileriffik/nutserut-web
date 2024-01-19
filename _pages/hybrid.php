@@ -83,8 +83,9 @@ require_once __DIR__.'/garbage.php';
 <div class="row my-5 justify-content-center">
 <div class="col-lg-9 col-md-9 col-sm-12">
 	<h5 data-l10n="HDR_HYBRID_INFO" id="info">Hybrid Rule-Based and Machine Learning</h5>
-	<p data-l10n="TXT_HYBRID_010">This is a machine translation model trained from parallel human-authored texts that have been through parts of the rule-based Greenlandic language analysis engine. In this first phase, no effort has gone into cleaning up or verifying that the texts are truly parallel. When compared to the <a href="./machine">raw artificial intelligence</a> engine, it is evident that by providing linguistic expertise we can greatly improve the translation quality, even if the parallel texts are of dubious quality.</p>
-	<p data-l10n="TXT_HYBRID_020">In 2024, we will work on verifying that the parallel corpora are of good quality, and on improving the Greenlandic analyser to provide better data, including better spelling- and grammar-checking.</p>
+	<p data-l10n="TXT_HYBRID_010">This is a machine translation model trained from parallel human-authored texts that have been through parts of the rule-based Greenlandic language analysis engine. In this first phase, no effort has gone into cleaning up or verifying that the texts are truly parallel or even correct Greenlandic. When compared to the <a href="./machine">naive artificial intelligence</a> engine, it is evident that by providing linguistic expertise we can greatly improve the translation quality, even if the parallel texts are of dubious quality.</p>
+	<p data-l10n="TXT_HYBRID_020">In 2024 and onwards, we will work on verifying that the parallel corpora are of good quality, and on improving the Greenlandic analyser to provide better data, including better spelling- and grammar-checking.</p>
+	<p data-l10n="TXT_HYBRID_030">We guarantee that none of your data is stored, unless you explicitly share a translation. And we will make all the underlying algorithms and technology, and the public parts of our training data, available for everyone to build on.</p>
 </div>
 </div>
 

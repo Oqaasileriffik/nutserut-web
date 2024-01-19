@@ -92,7 +92,7 @@ for ($i=1 ; $i<4 ; ++$i) {
 
 $out = <<<XOUT
 /*!
- * Copyright 2021-2022 Oqaasileriffik <oqaasileriffik@oqaasileriffik.gl> at https://oqaasileriffik.gl/
+ * Copyright 2021-2024 Oqaasileriffik <oqaasileriffik@oqaasileriffik.gl> at https://oqaasileriffik.gl/
  *
  * This project is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -112,6 +112,7 @@ $out = <<<XOUT
 let l10n = {
 	lang: 'en',
 	s: {},
+	tags: {},
 	};
 
 XOUT;

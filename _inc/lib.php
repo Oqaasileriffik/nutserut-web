@@ -224,6 +224,7 @@ function page_header($title='SITE_TITLE') {
 	<script src="https://cdn.jsdelivr.net/npm/jquery@3.7/dist/jquery.min.js"></script>
 	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3/dist/js/bootstrap.bundle.min.js"></script>
 	<script src="_static/l10n.js?<?=filemtime(__DIR__.'/../_static/l10n.js');?>"></script>
+	<script src="_static/l10n-tags.js?<?=filemtime(__DIR__.'/../_static/l10n-tags.js');?>"></script>
 	<script src="_static/nutserut.js?<?=filemtime(__DIR__.'/../_static/nutserut.js');?>"></script>
 </head>
 <body class="d-flex flex-column">

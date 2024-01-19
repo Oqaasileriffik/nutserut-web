@@ -23,8 +23,8 @@ page_header('SITE_TITLE_PRE');
 			<h3 data-l10n="HDR_ITIS">Nutserut is …</h3>
 			<ul>
 				<li data-l10n="TXT_IS_010">an advanced rule-based machine translation service, developed by Oqaasileriffik</li>
-				<li data-l10n="TXT_IS_020">a good tool to read news or other texts</li>
-				<li data-l10n="TXT_IS_030">a good helper if you're learning Greenlandic</li>
+				<!-- li data-l10n="TXT_IS_020">a good tool to read news or other texts</li -->
+				<!-- li data-l10n="TXT_IS_030">a good helper if you're learning Greenlandic</li -->
 				<li data-l10n="TXT_IS_040">the first release (alpha version) of the service</li>
 			</ul>
 
@@ -33,7 +33,7 @@ page_header('SITE_TITLE_PRE');
 			<ul>
 				<li data-l10n="TXT_ISNOT_010">a human; the service does not understand spelling or grammatical errors, and these will greatly impair the quality of the translation</li>
 				<li data-l10n="TXT_ISNOT_020">a dictionary; this service expects whole sentences, not fragments or single words</li>
-				<li data-l10n="TXT_ISNOT_030">finished; there is still a lot to do, and we know how to progress from here</li>
+				<!-- li data-l10n="TXT_ISNOT_030">finished; there is still a lot to do, and we know how to progress from here</li -->
 			</ul>
 		</div>
 		<div class="modal-footer text-center">
@@ -108,7 +108,7 @@ require_once __DIR__.'/garbage.php';
 <div class="row my-5 justify-content-center">
 <div class="col-lg-9 col-md-9 col-sm-12">
 	<h5 data-l10n="HDR_PRE2023_INFO" id="info">Rule-based Machine Translation</h5>
-	<p data-l10n="TXT_PRE2023_010">Started in 2018, this project aimed at making a rule-based machine translation engine between Greenlandic and Danish. Until mid-2023, this was the only viable method for handling a polysynthetic language with sparse bilingual corpora, but advances in machine learning has since allowed for trained machine translation models that perform equally well.</p>
+	<p data-l10n="TXT_PRE2023_010">Started in 2017, this project aimed at making a rule-based machine translation engine between Greenlandic and Danish. Until mid-2023, this was the only viable method for handling a polysynthetic language with sparse bilingual corpora, but advances in machine learning has since allowed for trained machine translation models that perform equally well.</p>
 	<p data-l10n="TXT_PRE2023_020">During the development of this project, we greatly improved the Greenlandic language analysis engine, which has many other uses - one of which is seen in the <a href="./hybrid">hybrid artificial intelligence</a> engine.</p>
 </div>
 </div>

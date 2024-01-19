@@ -83,7 +83,7 @@ require_once __DIR__.'/garbage.php';
 <div class="row my-5 justify-content-center">
 <div class="col-lg-9 col-md-9 col-sm-12">
 	<h5 data-l10n="HDR_MACHINE_INFO" id="info">Machine Learning</h5>
-	<p data-l10n="TXT_MACHINE_010">This is a machine translation model trained from raw parallel human-authored texts. This is about as good as you can get with zero linguistic expertise. In this first phase, no effort has gone into cleaning up or verifying that the texts are truly parallel. We made this model public to show what is possible from the bilingual texts one can find online, and as a comparison to the <a href="./hybrid">hybrid artificial intelligence</a> engine where we provide a little linguistic expertise.</p>
+	<p data-l10n="TXT_MACHINE_010">This is a machine translation model trained from raw parallel human-authored texts. This is about as good as you can get with zero linguistic expertise. In this first phase, no effort has gone into cleaning up or verifying that the texts are truly parallel or even correct Greenlandic. We made this model public to show what is possible from the bilingual texts one can find online, and as a comparison to the <a href="./hybrid">hybrid artificial intelligence</a> engine where we provide a little linguistic expertise.</p>
 </div>
 </div>
 
