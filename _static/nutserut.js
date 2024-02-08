@@ -66,9 +66,17 @@
 		window.localStorage.removeItem(key);
 	}
 
+	function dep_show() {
+		$('.dep-shown').removeClass('dep-shown');
+		$(this).addClass('dep-shown');
+		$('#cohort-'+$(this).attr('data-which')).addClass('dep-shown');
+	}
+
 	function gloss_post_render() {
 		const tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]');
 		const tooltipList = [...tooltipTriggerList].map(tooltipTriggerEl => new bootstrap.Tooltip(tooltipTriggerEl));
+
+		$('.dep-show').mouseover(dep_show).click(dep_show);
 	}
 
 	function sort_readings(a, b) {
@@ -89,6 +97,9 @@
 		txt = txt.split(' ');
 		for (let i=0 ; i<txt.length ; ++i) {
 			let tag = txt[i];
+			if (tag.indexOf('<span\xa0') === 0) {
+				continue;
+			}
 			let cls = [];
 			let title = '';
 			if (/^"(.+?)"$/.test(txt[i])) {
@@ -120,17 +131,40 @@
 	}
 
 	function glossify(txt) {
-		let html = '';
+		let htmls = [];
 		let cs = txt.split(/\n(?="<)/);
 		for (let i=0 ; i<cs.length ; ++i) {
+			let id = 0;
+
+			let m = null;
+			if ((m = cs[i].match(/ ID:(\d+)\b/)) !== null) {
+				cs[i] = cs[i].replace(m[0], '');
+				id = parseInt(m[1]);
+			}
+			while ((m = cs[i].match(/ R:(\S+?):(\d+)\b/)) !== null) {
+				let rd = parseInt(m[2]);
+				cs[i] = cs[i].replace(m[0], '');
+				let arrow = '<i class="bi bi-arrow-up"></i>';
+				if (rd > id) {
+					arrow = '<i class="bi bi-arrow-down"></i>';
+				}
+				let html = '<span class="dashed dep-show" data-which="'+rd+'">'+m[1]+arrow+'</span>';
+				cs[i] = cs[i].replace(' _x_'+m[1]+' ', ' '+html.replace(/ /g, '\xa0')+' ');
+			}
+			cs[i] = cs[i].replace(/ _x_/g, ' ');
+
 			let rs = cs[i].split(/\n\t/);
 			let wf = rs.shift();
+			let html = '';
+			html += '<span id="cohort-'+id+'">';
 			html += '<b>'+escHTML(wf.substring(2, wf.length-2))+"</b>\n";
 			rs.sort(sort_readings);
 			html += '<i class="bi bi-hash"></i><span class="ms-2 gloss-src">'+format_reading(rs[0])+"</span>\n";
 			html += '<i class="bi bi-highlighter"></i><span class="ms-2 gloss-trg">'+format_reading(rs[1])+"</span>\n";
+			html += '</span>';
+			htmls.push(html);
 		}
-		return html;
+		return htmls.join('').replace(/\xa0/g, ' ');
 	}
 
 	function btnFeedbackSend() {
