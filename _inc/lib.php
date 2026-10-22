@@ -91,22 +91,23 @@ function handle_via_nmt($hash, $pair, $input) {
 	if ($ps[0] === 'h') {
 		$input = "<s1>\n{$input}\n</s1>";
 	}
-	file_put_contents("/tmp/{$pair}-{$hash}.in.txt", $input);
 
-	shell_exec("cat '/tmp/{$pair}-{$hash}.in.txt' | /opt/nutserut/models/{$ps[0]}/tok-{$ps[1]}.sh > '/tmp/{$pair}-{$hash}.in.bpe'");
-	shell_exec("/opt/nutserut/models/{$ps[0]}/trx.sh '{$ps[1]}' '/tmp/{$pair}-{$hash}.in.bpe' '/tmp/{$pair}-{$hash}.out.bpe' >'/tmp/{$pair}-{$hash}.log' 2>&1");
+	$data = [
+		'a' => $pair,
+		't' => $input,
+	];
+	$ch = curl_init('http://localhost:10400/');
+	curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+	curl_setopt($ch, CURLOPT_POSTFIELDS, http_build_query($data));
+	$json = curl_exec($ch);
 
-	$output = file_get_contents("/tmp/{$pair}-{$hash}.out.bpe");
+	if (curl_error($ch)) {
+		throw new RuntimeException(curl_error($ch));
+	}
+
+	$output = json_decode($json, true)['o'];
 	$output = preg_replace('~@@( |$)~', '', $output);
 	$output = trim($output);
-
-	/*
-	$output = explode("\n", $output);
-	for ($i=0,$e=count($output) ; $i<$e ; ++$i) {
-		$output[$i] = (($i%5)+1).': '.$output[$i];
-	}
-	$output = implode("\n\n", $output);
-	//*/
 
 	return $output;
 }
